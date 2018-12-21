@@ -1,4 +1,4 @@
-package com.example.test.cameraphoto.mtp;
+package cc.yelinvan.photographhome.mtp;
 
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -17,14 +17,14 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.test.cameraphoto.Constant;
-import com.example.test.cameraphoto.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cc.yelinvan.photographhome.Constant;
+import cc.yelinvan.photographhome.FileUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;

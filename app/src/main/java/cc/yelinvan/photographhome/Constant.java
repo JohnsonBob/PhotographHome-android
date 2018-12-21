@@ -1,4 +1,4 @@
-package com.example.test.cameraphoto;
+package cc.yelinvan.photographhome;
 
 import android.mtp.MtpDevice;
 

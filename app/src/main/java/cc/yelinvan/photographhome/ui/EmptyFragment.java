@@ -1,4 +1,4 @@
-package com.example.test.cameraphoto.ui;
+package cc.yelinvan.photographhome.ui;
 
 
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.test.cameraphoto.R;
+import cc.yelinvan.photographhome.R;
 
 
 /**

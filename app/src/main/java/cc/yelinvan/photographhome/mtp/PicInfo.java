@@ -1,4 +1,4 @@
-package com.example.test.cameraphoto.mtp;
+package cc.yelinvan.photographhome.mtp;
 
 import java.io.Serializable;
 

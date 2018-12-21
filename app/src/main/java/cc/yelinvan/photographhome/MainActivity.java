@@ -1,4 +1,4 @@
-package com.example.test.cameraphoto;
+package cc.yelinvan.photographhome;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -11,9 +11,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.test.cameraphoto.mtp.MTPService;
-import com.example.test.cameraphoto.ui.EmptyFragment;
-import com.example.test.cameraphoto.ui.PhotoFragment;
+import cc.yelinvan.photographhome.mtp.MTPService;
+import cc.yelinvan.photographhome.ui.EmptyFragment;
+import cc.yelinvan.photographhome.ui.PhotoFragment;
+
+import cc.yelinvan.photographhome.R;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.List;

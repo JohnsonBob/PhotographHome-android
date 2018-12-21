@@ -1,4 +1,4 @@
-package com.example.test.cameraphoto;
+package cc.yelinvan.photographhome;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

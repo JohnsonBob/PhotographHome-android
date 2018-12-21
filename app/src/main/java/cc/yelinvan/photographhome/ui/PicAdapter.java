@@ -1,4 +1,4 @@
-package com.example.test.cameraphoto.ui;
+package cc.yelinvan.photographhome.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +10,10 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.example.test.cameraphoto.Constant;
-import com.example.test.cameraphoto.R;
-import com.example.test.cameraphoto.mtp.PicInfo;
+import cc.yelinvan.photographhome.Constant;
+import cc.yelinvan.photographhome.mtp.PicInfo;
+
+import cc.yelinvan.photographhome.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.example.test.cameraphoto.ui;
+package cc.yelinvan.photographhome.ui;
 
 
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.test.cameraphoto.R;
-import com.example.test.cameraphoto.mtp.PicInfo;
+import cc.yelinvan.photographhome.R;
+import cc.yelinvan.photographhome.mtp.PicInfo;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
