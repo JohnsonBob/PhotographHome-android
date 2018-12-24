@@ -1,4 +1,4 @@
-package cc.yelinvan.photographhome;
+package cc.yelinvan.photographhome.utils;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by apple on 2018/7/13.
+ * Created by Johnson on 2018年12月24日09:40:53
  */
 
 public class FileUtils {

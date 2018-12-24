@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cc.yelinvan.photographhome.Constant;
-import cc.yelinvan.photographhome.FileUtils;
+import cc.yelinvan.photographhome.utils.FileUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;

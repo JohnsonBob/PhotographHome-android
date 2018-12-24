@@ -3,7 +3,7 @@ package cc.yelinvan.photographhome;
 import android.mtp.MtpDevice;
 
 /**
- * Created by apple on 2018/4/3.
+ * Created by Johnson on 2018年12月24日09:40:42
  */
 
 public class Constant {

@@ -1,6 +1,7 @@
-package cc.yelinvan.photographhome;
+package cc.yelinvan.photographhome.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,11 +34,14 @@ public class MainActivity extends AppCompatActivity implements Consumer<List>{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //设置状态栏颜色
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorAccent),0);
         permissioncheck();
         openFragment(mEmptyFragment);
         mService=new MTPService(this);
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
     }
 
     private void permissioncheck() {
