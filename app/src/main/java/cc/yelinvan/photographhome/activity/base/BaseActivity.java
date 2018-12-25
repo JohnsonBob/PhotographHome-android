@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import butterknife.ButterKnife;
 import cc.yelinvan.photographhome.broadcastreceiver.NetBroadcastReceiver;
 import cc.yelinvan.photographhome.utils.ActivityUtil;
 import cc.yelinvan.photographhome.utils.ConstantUtil;
@@ -48,6 +49,9 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
 
         // 执行初始化方法
         init();
+
+        //执行ButterKnife框架初始化
+        ButterKnife.bind(this);
     }
 
     // 抽象 - 初始化方法，可以对数据进行初始化
