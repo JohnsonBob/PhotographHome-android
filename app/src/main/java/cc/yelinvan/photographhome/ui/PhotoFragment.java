@@ -28,7 +28,7 @@ import java.util.Set;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Johnson on 2018年12月26日16:44:45
  */
 public class PhotoFragment extends Fragment {
     private PicAdapter adapter;

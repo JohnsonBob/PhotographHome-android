@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity implements Consumer<List>{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //permissioncheck();
         openFragment(mEmptyFragment);
         mService=new MTPService(this);

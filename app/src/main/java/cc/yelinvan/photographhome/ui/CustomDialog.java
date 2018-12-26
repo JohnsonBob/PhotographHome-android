@@ -10,7 +10,7 @@ import cc.yelinvan.photographhome.R;
 
 
 /**
- * Created by apple on 2018/4/9.
+ * Created by Johnson on 2018年12月26日16:44:45
  */
 
 public class CustomDialog extends Dialog {

@@ -27,7 +27,7 @@
         </activity>
         <activity android:name=".activity.MainActivity" />
 
-        <!--注册广播-->
+        <!-- 注册广播 -->
         <receiver android:name=".broadcastreceiver.NetBroadcastReceiver">
             <intent-filter>
                 <action
@@ -35,6 +35,8 @@
                     tools:ignore="BatteryLife" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".activity.ProjectListActivity"></activity>
     </application>
 
 </manifest>

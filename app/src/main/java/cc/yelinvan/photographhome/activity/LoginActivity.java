@@ -139,7 +139,7 @@ public class LoginActivity extends BaseActivity {
                             sharedPreferencesHelper.put(Constant.AUTOLOGIN, cbAutoLogin.isChecked());
                             sharedPreferencesHelper.put(Constant.REMEMBERPASSWORD, cbRmPassword.isChecked());
                         }
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, ProjectListActivity.class);
                         LoginActivity.this.startActivity(intent);
                         LoginActivity.this.finish();
                     }else {

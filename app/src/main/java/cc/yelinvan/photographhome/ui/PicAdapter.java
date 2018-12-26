@@ -22,7 +22,7 @@ import java.util.List;
 
 
 /**
- * Created by apple on 2018/3/23.
+ * Created by Johnson on 2018年12月26日16:45:37
  */
 
 public class PicAdapter extends RecyclerView.Adapter<PicAdapter.ViewHolder> {
