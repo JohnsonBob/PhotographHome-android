@@ -13,10 +13,18 @@ import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import org.xutils.BuildConfig;
+import org.xutils.ex.HttpException;
+import org.xutils.x;
+
+import java.net.SocketTimeoutException;
+
 import butterknife.ButterKnife;
 import cc.yelinvan.photographhome.broadcastreceiver.NetBroadcastReceiver;
 import cc.yelinvan.photographhome.utils.ActivityUtil;
 import cc.yelinvan.photographhome.utils.ConstantUtil;
+import cc.yelinvan.photographhome.utils.LogUtils;
+import cc.yelinvan.photographhome.utils.ToastUtil;
 
 /**
  * BaseActivity是所有Activity的基类，把一些公共的方法放到里面，如基础样式设置，权限封装，网络状态监听等
@@ -52,6 +60,15 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
 
         //执行ButterKnife框架初始化
         ButterKnife.bind(this);
+
+        //日志工具初始化
+        LogUtils.init(this);
+
+        //xUtils3 框架初始化
+        x.Ext.init(getApplication());
+        if(LogUtils.APP_DBG){
+            x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
+        }
     }
 
     // 抽象 - 初始化方法，可以对数据进行初始化
@@ -136,5 +153,17 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
      */
     @Override
     public void onNetChange(boolean netWorkState) {
+    }
+
+    /**
+     * xUtils框架网络请求失败处理
+     * @param ex
+     */
+    public void requestError(Throwable ex){
+        if(ex instanceof HttpException) { // 网络错误
+            ToastUtil.showShort(getApplicationContext(),"网络异常，请检查后重试");
+        }else if(ex instanceof SocketTimeoutException){ // 其他错误
+            ToastUtil.showShort(getApplicationContext(),"网络请求超时，请检查后重试");
+        }
     }
 }

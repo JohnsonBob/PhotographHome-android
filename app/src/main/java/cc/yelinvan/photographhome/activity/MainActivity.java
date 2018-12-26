@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import cc.yelinvan.photographhome.activity.base.BaseActivity;
 import cc.yelinvan.photographhome.mtp.MTPService;
 import cc.yelinvan.photographhome.ui.EmptyFragment;
 import cc.yelinvan.photographhome.ui.PhotoFragment;
@@ -23,7 +24,7 @@ import java.util.List;
 
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends AppCompatActivity implements Consumer<List>{
+public class MainActivity extends BaseActivity implements Consumer<List>{
 
     private FragmentManager mFragmentManager;
     EmptyFragment mEmptyFragment=new EmptyFragment();
@@ -35,13 +36,31 @@ public class MainActivity extends AppCompatActivity implements Consumer<List>{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //设置状态栏颜色
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorAccent),0);
-        permissioncheck();
+
+        //permissioncheck();
         openFragment(mEmptyFragment);
         mService=new MTPService(this);
-        Intent intent = new Intent(this,LoginActivity.class);
-        startActivity(intent);
+
+    }
+
+    @Override
+    protected void init() {
+        //设置状态栏颜色
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorAccent),0);
+
+        //权限检测
+        boolean hasPermission = hasPermission(new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        });
+        //授权
+        if(!hasPermission){
+            requestPermission(1,new String[] {
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            });
+        }
+
     }
 
     private void permissioncheck() {

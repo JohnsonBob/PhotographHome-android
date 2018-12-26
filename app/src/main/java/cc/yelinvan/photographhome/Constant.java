@@ -14,5 +14,14 @@ public class Constant {
     public static String LOGININFO = "logininfo";   //保存登录信息文件名
     public static String PASSWORD = "password";   //保存密码
     public static String USERNAME = "username";   //保存账号
+    public static String AUTOLOGIN = "autologin";   //是否自动登录
+    public static String REMEMBERPASSWORD = "rememberpassword";   //是否记住密码
+    public static String TOKEN = "token";   //保存token
+    public static final String SERVER = "http://johnson.data.i-sanya.com";
 
+    public static class Url {
+        //登录
+        public static String LOGIN = SERVER + "/api/login";
+
+    }
 }
