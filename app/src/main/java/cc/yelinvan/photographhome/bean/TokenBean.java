@@ -3,7 +3,7 @@ package cc.yelinvan.photographhome.bean;
 /**
  * Create by Johnson on 2018-12-26 14:41
  */
-public class DataBean {
+public class TokenBean {
     private String token;
 
     public String getToken() {

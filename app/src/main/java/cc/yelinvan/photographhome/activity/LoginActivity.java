@@ -2,22 +2,19 @@ package cc.yelinvan.photographhome.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jaeger.library.StatusBarUtil;
 
 import org.xutils.common.Callback;
-import org.xutils.ex.HttpException;
 import org.xutils.x;
 
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,7 +22,8 @@ import butterknife.OnClick;
 import cc.yelinvan.photographhome.Constant;
 import cc.yelinvan.photographhome.R;
 import cc.yelinvan.photographhome.activity.base.BaseActivity;
-import cc.yelinvan.photographhome.bean.LoginBean;
+import cc.yelinvan.photographhome.bean.TokenBean;
+import cc.yelinvan.photographhome.bean.ResponseBean;
 import cc.yelinvan.photographhome.utils.EditTextClearTools;
 import cc.yelinvan.photographhome.utils.NetParams;
 import cc.yelinvan.photographhome.utils.SharedPreferencesHelper;
@@ -127,15 +125,16 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 if(!result.isEmpty()){
-                    LoginBean loginBean = new Gson().fromJson(result, LoginBean.class);
-                    if(loginBean.isCode() && !loginBean.getData().getToken().isEmpty()){
-                        ToastUtil.showShort(LoginActivity.this, loginBean.getMsg());
+                    ResponseBean<TokenBean> responseBean = new Gson().fromJson(result,
+                            new TypeToken<ResponseBean<TokenBean>>() {}.getType());
+                    if(responseBean.isCode() && !responseBean.getData().getToken().isEmpty()){
+                        ToastUtil.showShort(LoginActivity.this, responseBean.getMsg());
 
                         //保存数据
                         if(cbRmPassword.isChecked()){
                             sharedPreferencesHelper.put(Constant.USERNAME, username);
                             sharedPreferencesHelper.put(Constant.PASSWORD, password);
-                            sharedPreferencesHelper.put(Constant.TOKEN, loginBean.getData().getToken());
+                            sharedPreferencesHelper.put(Constant.TOKEN, responseBean.getData().getToken());
                             sharedPreferencesHelper.put(Constant.AUTOLOGIN, cbAutoLogin.isChecked());
                             sharedPreferencesHelper.put(Constant.REMEMBERPASSWORD, cbRmPassword.isChecked());
                         }
@@ -143,7 +142,7 @@ public class LoginActivity extends BaseActivity {
                         LoginActivity.this.startActivity(intent);
                         LoginActivity.this.finish();
                     }else {
-                        ToastUtil.showShort(LoginActivity.this, loginBean.getMsg());
+                        ToastUtil.showShort(LoginActivity.this, responseBean.getMsg());
                     }
                 }
             }

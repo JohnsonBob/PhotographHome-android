@@ -3,10 +3,10 @@ package cc.yelinvan.photographhome.bean;
 /**
  * Create by Johnson on 2018-12-26 14:39
  */
-public class LoginBean {
+public  class ResponseBean<T>{
     private boolean code;
     private String msg;
-    private DataBean data;
+    private T data;
 
     public boolean isCode() {
         return code;
@@ -24,11 +24,11 @@ public class LoginBean {
         this.msg = msg;
     }
 
-    public DataBean getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

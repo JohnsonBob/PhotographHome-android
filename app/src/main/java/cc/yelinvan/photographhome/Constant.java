@@ -22,6 +22,7 @@ public class Constant {
     public static class Url {
         //登录
         public static String LOGIN = SERVER + "/api/login";
-
+        //获取相册列表
+        public static String GETPROJECT = SERVER + "/api/getProject";
     }
 }
