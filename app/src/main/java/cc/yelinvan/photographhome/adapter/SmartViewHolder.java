@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import cc.yelinvan.photographhome.bean.ProjectBean;
 
 public class SmartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -104,5 +105,27 @@ public class SmartViewHolder extends RecyclerView.ViewHolder implements View.OnC
             view.setVisibility(View.VISIBLE);
         }
         return this;
+    }
+
+    public  SmartViewHolder setOnclick(int id, int position, OnMmoduleClickListener.OnClickListener myclick) {
+        View view = findViewById(id);
+        if (view != null) {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    myclick.onMmoduleClick(SmartViewHolder.this, position);
+                }
+            });
+        }
+        return this;
+    }
+
+
+
+    public abstract static class OnMmoduleClickListener{
+//        public abstract void onMmoduleClick(SmartViewHolder holder, ProjectBean model, int position);
+        public interface OnClickListener {
+            void onMmoduleClick(SmartViewHolder holder, int position);
+        }
     }
 }

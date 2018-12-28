@@ -37,15 +37,16 @@ import cc.yelinvan.photographhome.adapter.SmartViewHolder;
 import cc.yelinvan.photographhome.bean.ProjectBean;
 import cc.yelinvan.photographhome.bean.ResponseBean;
 import cc.yelinvan.photographhome.utils.NetParams;
+import cc.yelinvan.photographhome.utils.ToastUtil;
 
-import static android.R.layout.simple_list_item_2;
+//import static android.R.layout.simple_list_item_2;
 
 /**
  * 相册列表activity
  * Create by Johnson on 2018年12月26日17:05:06
  */
 public class ProjectListActivity extends BaseActivity {
-    private BaseRecyclerAdapter<Void> mAdapter;
+    private BaseRecyclerAdapter<ProjectBean> mAdapter;
     @BindView(R.id.listView)
     AbsListView listView;
     @BindView(R.id.refreshLayout)
@@ -55,8 +56,14 @@ public class ProjectListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getProjectList();
+//        getProjectList();
         uiInit();
+        refreshLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -71,12 +78,21 @@ public class ProjectListActivity extends BaseActivity {
      * UI组件初始化
      */
     private void uiInit() {
-        listView.setAdapter(mAdapter = new BaseRecyclerAdapter<Void>(simple_list_item_2) {
+        listView.setAdapter(mAdapter = new BaseRecyclerAdapter<ProjectBean>(R.layout.item_project) {
             @Override
-            protected void onBindViewHolder(SmartViewHolder holder, Void model, int position) {
-                holder.text(android.R.id.text1, getString(R.string.item_example_number_title, position));
-                holder.text(android.R.id.text2, getString(R.string.item_example_number_abstract, position));
-                holder.textColorId(android.R.id.text2, R.color.colorTextAssistant);
+            protected void onBindViewHolder(SmartViewHolder holder, ProjectBean model, int position) {
+                holder.text(R.id.tv_projectname, model.getProject_name());
+                holder.text(R.id.tv_desc, model.getDesc());
+                holder.text(R.id.tv_starttime,"开始时间：" + model.getStart_time());
+                holder.text(R.id.tv_endtime, "结束时间：" + model.getEnd_time());
+                holder.setOnclick(R.id.ib_delete , position, new SmartViewHolder.OnMmoduleClickListener.OnClickListener(){
+
+                    @Override
+                    public void onMmoduleClick(SmartViewHolder holder, int position) {
+
+                    }
+                });
+
             }
         });
 
@@ -106,33 +122,19 @@ public class ProjectListActivity extends BaseActivity {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
-                refreshLayout.getLayout().postDelayed(new Runnable() {
+                ProjectListActivity.this.getProjectList();
+                /*refreshLayout.getLayout().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.refresh(initData());
-                        refreshLayout.finishRefresh();
-                        refreshLayout.resetNoMoreData();//setNoMoreData(false);
+                        ProjectListActivity.this.getProjectList();
+//                        mAdapter.refresh(initData());
+//                        refreshLayout.finishRefresh();
+//                        refreshLayout.resetNoMoreData();//setNoMoreData(false);
                     }
-                }, 2000);
+                }, 0);*/
             }
         });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
-                refreshLayout.getLayout().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mAdapter.getItemCount() > 30) {
-                            Toast.makeText(getApplication(), "数据全部加载完毕", Toast.LENGTH_SHORT).show();
-                            refreshLayout.finishLoadMoreWithNoMoreData();//将不会再次触发加载更多事件
-                        } else {
-                            mAdapter.loadMore(initData());
-                            refreshLayout.finishLoadMore();
-                        }
-                    }
-                }, 2000);
-            }
-        });
+
 
         //触发自动刷新
         refreshLayout.autoRefresh();
@@ -177,10 +179,16 @@ public class ProjectListActivity extends BaseActivity {
                             }.getType());
                     if (ResponseBean.isCode()) {
                         projectList = ResponseBean.getData();
+                        mAdapter.refresh(projectList);
+                        refreshLayout.finishRefresh();
+                        refreshLayout.resetNoMoreData();//setNoMoreData(false);
+                        refreshLayout.finishLoadMoreWithNoMoreData();//将不会再次触发加载更多事件
                     } else {
-
+                        ToastUtil.showLong(ProjectListActivity.this,"数据请求失败！");
                     }
 
+                }else {
+                    ToastUtil.showLong(ProjectListActivity.this,"请求数据为空！");
                 }
 
             }
@@ -201,9 +209,5 @@ public class ProjectListActivity extends BaseActivity {
             }
         });
         return null;
-    }
-
-    private Collection<Void> initData() {
-        return Arrays.asList(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
 }

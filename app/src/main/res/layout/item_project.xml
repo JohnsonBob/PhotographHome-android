@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="?attr/listPreferredItemPaddingStart"
+    android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+    android:paddingBottom="8dp">
+
+    <LinearLayout
+        android:layout_weight="10"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_width="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_projectname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:text="天涯海角活动"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/colorTextAssistant"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            android:text="天涯海角活动"/>
+
+        <TextView
+            android:id="@+id/tv_starttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="@color/colorTextAssistant"
+            android:text="开始时间："/>
+
+        <TextView
+            android:id="@+id/tv_endtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="@color/colorTextAssistant"
+            android:text="结束时间:"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <ImageButton
+            android:id="@+id/ib_delete"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@color/white"
+            android:src="@mipmap/delete_icon"/>
+    </RelativeLayout>
+
+
+</LinearLayout>
