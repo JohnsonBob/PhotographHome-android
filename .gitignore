@@ -5,3 +5,5 @@
 .idea/
 app/build/
 photoview/build/
+app/app.iml
+photoview/photoview.iml
