@@ -163,6 +163,8 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
             ToastUtil.showShort(getApplicationContext(),"网络异常，请检查后重试");
         }else if(ex instanceof SocketTimeoutException){ // 其他错误
             ToastUtil.showShort(getApplicationContext(),"网络请求超时，请检查后重试");
+        }else {
+            ToastUtil.showShort(getApplicationContext(),"请求服务器失败，请联系管理员！");
         }
     }
 }
