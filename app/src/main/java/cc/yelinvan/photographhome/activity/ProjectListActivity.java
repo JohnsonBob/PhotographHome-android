@@ -1,6 +1,8 @@
 package cc.yelinvan.photographhome.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -25,6 +27,7 @@ import java.util.Collection;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,7 +92,13 @@ public class ProjectListActivity extends BaseActivity {
 
                     @Override
                     public void onMmoduleClick(SmartViewHolder holder, int position) {
-
+                        //删除按钮点击事件
+                        if(projectList != null && projectList.size()>position){
+                            ProjectBean projectBean = projectList.get(position);
+                            showDeleteDialog(projectBean);
+                        }else {
+                            ToastUtil.showShort(ProjectListActivity.this,"要删除的相册不存在，请刷新后重试！");
+                        }
                     }
                 });
 
@@ -168,6 +177,33 @@ public class ProjectListActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 显示删除对话框
+     * @param projectBean 删除相册
+     */
+    private void showDeleteDialog(ProjectBean projectBean) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("你确定要删除相册吗？");
+        builder.setMessage("相册名称："+ projectBean.getProject_name());
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteProjectByid(String.valueOf(projectBean.getId()));
+            }
+        });
+        //添加一个取消按钮，
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        builder.show();
+    }
+
+    /**
+     * 获取项目列表
+     * @return
+     */
     protected List<ProjectBean> getProjectList() {
         NetParams netParams = new NetParams(this, Constant.Url.GETPROJECT, 5000);
         x.http().post(netParams, new Callback.CommonCallback<String>() {
@@ -209,5 +245,48 @@ public class ProjectListActivity extends BaseActivity {
             }
         });
         return null;
+    }
+
+    /**
+     * 删除项目
+     */
+    private void deleteProjectByid(String projectid){
+        NetParams netParams = new NetParams(this, Constant.Url.DELETEPROJECT, 5000);
+        netParams.addBodyParameter("project_id",projectid);
+        x.http().post(netParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if(!result.isEmpty()){
+                    ResponseBean responseBean = new Gson().fromJson(result,
+                            new TypeToken<ResponseBean>() {}.getType());
+                    if(responseBean.isCode()){
+                        //删除成功
+                        ToastUtil.showShort(ProjectListActivity.this,responseBean.getMsg());
+                        //刷新列表
+                        getProjectList();
+
+                    }else {
+                        ToastUtil.showShort(ProjectListActivity.this,responseBean.getMsg());
+                    }
+                }else {
+                    ToastUtil.showLong(ProjectListActivity.this,"请求失败，返回数据为空！");
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                ProjectListActivity.this.requestError(ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

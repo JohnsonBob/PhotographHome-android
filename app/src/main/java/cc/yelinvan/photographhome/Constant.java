@@ -24,5 +24,7 @@ public class Constant {
         public static String LOGIN = SERVER + "/api/login";
         //获取相册列表
         public static String GETPROJECT = SERVER + "/api/getProject";
+        //删除相册
+        public static String DELETEPROJECT = SERVER + "/api/deleteProject";
     }
 }
