@@ -25,4 +25,10 @@
     <drawable name="camera_back_default">#2f2f2f</drawable>
 
     <color name="colorTextAssistant">#888888</color>
+    <color name="background_white_color">#f7f7f7</color>
+    <color name="normal_text_color">#333333</color>
+    <color name="dangerous_color">#ff2929</color>
+    <color name="split_line_color">#eeeeee</color>
+    <color name="theme_color_normal">#2998ff</color>
+    <color name="second_text_color">#999999</color>
 </resources>

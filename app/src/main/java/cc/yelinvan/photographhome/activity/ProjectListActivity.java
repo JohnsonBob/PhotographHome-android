@@ -151,17 +151,12 @@ public class ProjectListActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BottomSheetDialog dialog = new BottomSheetDialog(ProjectListActivity.this);
-                View dialogView = View.inflate(getBaseContext(), R.layout.activity_project, null);
-                RefreshLayout refreshLayout = dialogView.findViewById(R.id.refreshLayout);
-                RecyclerView recyclerView = new RecyclerView(getBaseContext());
-                recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                recyclerView.setAdapter(mAdapter);
-                refreshLayout.setEnableRefresh(false);
-                refreshLayout.setEnableNestedScroll(false);
-                refreshLayout.setRefreshContent(recyclerView);
-                dialog.setContentView(dialogView);
-                dialog.show();
+                if(projectList != null && projectList.size()>position){
+                    ProjectBean projectBean = projectList.get(position);
+
+                }else {
+                    ToastUtil.showShort(ProjectListActivity.this,"该相册不存在，请刷新后重试！");
+                }
             }
         });
 
