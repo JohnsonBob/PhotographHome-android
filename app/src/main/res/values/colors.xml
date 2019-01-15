@@ -31,4 +31,5 @@
     <color name="split_line_color">#eeeeee</color>
     <color name="theme_color_normal">#2998ff</color>
     <color name="second_text_color">#999999</color>
+    <color name="theme_color_tap">#2588e6</color>
 </resources>
