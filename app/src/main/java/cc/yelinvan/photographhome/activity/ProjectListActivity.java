@@ -1,6 +1,7 @@
 package cc.yelinvan.photographhome.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -153,7 +154,8 @@ public class ProjectListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(projectList != null && projectList.size()>position){
                     ProjectBean projectBean = projectList.get(position);
-
+                    Intent intent = new Intent(ProjectListActivity.this,PhotoGraphUploadOneActivity.class);
+                    startActivity(intent);
                 }else {
                     ToastUtil.showShort(ProjectListActivity.this,"该相册不存在，请刷新后重试！");
                 }

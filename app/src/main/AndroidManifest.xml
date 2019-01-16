@@ -39,6 +39,8 @@
         </receiver>
 
         <activity android:name=".activity.ProjectListActivity"></activity>
+        <activity android:name=".activity.PhotoGraphUploadOneActivity"></activity>
+        <service android:name=".service.NetSpeedService"></service>
     </application>
 
 </manifest>

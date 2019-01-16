@@ -143,7 +143,7 @@
 
                 <TextView
                     android:id="@+id/album_flashupload_choose_photo_icon"
-                    android:layout_width="match_parent"
+                    android:layout_width="125dp"
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical|center_horizontal|center"
                     android:paddingRight="14dp"
@@ -223,7 +223,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/album_flashupload_photo_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
