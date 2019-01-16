@@ -9,12 +9,17 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import cc.yelinvan.photographhome.R;
 import cc.yelinvan.photographhome.Receiver.BatteryReceiver;
 import cc.yelinvan.photographhome.activity.base.BaseActivity;
+import cc.yelinvan.photographhome.eventbus.NetSpeedEvent;
 import cc.yelinvan.photographhome.service.NetSpeedService;
 
 /**
@@ -86,6 +91,7 @@ public class PhotoGraphUploadOneActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -109,5 +115,17 @@ public class PhotoGraphUploadOneActivity extends BaseActivity {
         super.onDestroy();
         //取消电量广播注册
         unregisterReceiver(batteryReceiver);
+        EventBus.getDefault().unregister(this);
     }
+
+    /**
+     *  网速事件处理
+     * @param netSpeedEvent
+     */
+    @Subscribe
+    public void netSpeedEvent(NetSpeedEvent netSpeedEvent){
+        networkSpeedText.setText(netSpeedEvent.toString());
+    }
+
+
 }

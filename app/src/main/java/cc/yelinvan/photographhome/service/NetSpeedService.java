@@ -7,7 +7,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 
+import org.greenrobot.eventbus.EventBus;
+
 import androidx.annotation.Nullable;
+import cc.yelinvan.photographhome.eventbus.NetSpeedEvent;
 
 /**
  * Create by Johnson on 2019-1-16 16:27
@@ -23,7 +26,8 @@ public class NetSpeedService extends Service {
     private long total_data = TrafficStats.getTotalRxBytes();
     private Handler mHandler;
     //几秒刷新一次
-    private final int count = 5;
+    private final int count = 1;
+    private NetSpeedEvent netSpeedEvent = new NetSpeedEvent();
 
     /**
      * 定义线程周期性地获取网速
@@ -52,10 +56,15 @@ public class NetSpeedService extends Service {
                     //float real_data = (float)msg.arg1;
                     if(msg.arg1  > 1024 ){
                         System.out.println(msg.arg1 / 1024 + "kb/s");
+                        netSpeedEvent.setSpeed(msg.arg1 / 1024);
+                        netSpeedEvent.setUnit("kb/s");
                     }
                     else{
                         System.out.println(msg.arg1 + "b/s");
+                        netSpeedEvent.setSpeed(msg.arg1);
+                        netSpeedEvent.setUnit("b/s");
                     }
+                    EventBus.getDefault().post(netSpeedEvent);
                 }
             }
         };
