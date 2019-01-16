@@ -55,12 +55,12 @@ public class NetSpeedService extends Service {
                 if (msg.what == 1) {
                     //float real_data = (float)msg.arg1;
                     if(msg.arg1  > 1024 ){
-                        System.out.println(msg.arg1 / 1024 + "kb/s");
+//                        System.out.println(msg.arg1 / 1024 + "kb/s");
                         netSpeedEvent.setSpeed(msg.arg1 / 1024);
                         netSpeedEvent.setUnit("kb/s");
                     }
                     else{
-                        System.out.println(msg.arg1 + "b/s");
+//                        System.out.println(msg.arg1 + "b/s");
                         netSpeedEvent.setSpeed(msg.arg1);
                         netSpeedEvent.setUnit("b/s");
                     }

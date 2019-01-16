@@ -3,9 +3,12 @@ package cc.yelinvan.photographhome.activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import cc.yelinvan.photographhome.R;
 import cc.yelinvan.photographhome.Receiver.BatteryReceiver;
 import cc.yelinvan.photographhome.activity.base.BaseActivity;
@@ -126,6 +130,35 @@ public class PhotoGraphUploadOneActivity extends BaseActivity {
     public void netSpeedEvent(NetSpeedEvent netSpeedEvent){
         networkSpeedText.setText(netSpeedEvent.toString());
     }
+
+    /**
+     * 返回按钮点击事件
+     */
+    @OnClick (R.id.back_text)
+    public void goBack(){
+        finish();
+    }
+
+
+    /**
+     * 显示设置界面
+     */
+    @OnClick (R.id.album_flashupload_choose_upload_setting_icon)
+    public void showSetting(){
+        View settingItemView = LayoutInflater.from(this).inflate(R.layout.album_flashupload_choose_uploadmode, null);
+        PopupWindow popupWindow = new PopupWindow(settingItemView, albumFlashuploadSettingLayout.getWidth(), -2,true);
+        popupWindow.showAsDropDown(albumFlashuploadSettingLayout,0,0);
+
+        TextView chooseUploadMode = settingItemView.findViewById(R.id.choose_upload_mode_text);
+        chooseUploadMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+    }
+
 
 
 }
