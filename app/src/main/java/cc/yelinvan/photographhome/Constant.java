@@ -17,7 +17,7 @@ public class Constant {
     public static String AUTOLOGIN = "autologin";   //是否自动登录
     public static String REMEMBERPASSWORD = "rememberpassword";   //是否记住密码
     public static String TOKEN = "token";   //保存token
-    public static final String SERVER = "http://johnson.data.i-sanya.com";
+    public static final String SERVER = "http://johnson.cross.echosite.cn";
 
     public static class Url {
         //登录

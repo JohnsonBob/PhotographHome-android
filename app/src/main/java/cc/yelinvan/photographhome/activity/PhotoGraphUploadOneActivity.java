@@ -2,6 +2,7 @@ package cc.yelinvan.photographhome.activity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -149,11 +151,55 @@ public class PhotoGraphUploadOneActivity extends BaseActivity {
         PopupWindow popupWindow = new PopupWindow(settingItemView, albumFlashuploadSettingLayout.getWidth(), -2,true);
         popupWindow.showAsDropDown(albumFlashuploadSettingLayout,0,0);
 
+        TextView choosePhotoSize = settingItemView.findViewById(R.id.choose_photo_size_text);
         TextView chooseUploadMode = settingItemView.findViewById(R.id.choose_upload_mode_text);
+        LinearLayout photoSizeLayout = settingItemView.findViewById(R.id.photo_size_layout);
+        LinearLayout uploadModeLayout = settingItemView.findViewById(R.id.upload_mode_layout);
+        LinearLayout choosePhotoSizeLayout = settingItemView.findViewById(R.id.choose_photo_size_layout);
+        LinearLayout chooseUploadModeLayout = settingItemView.findViewById(R.id.choose_upload_mode_layout);
+
+
+        TextView flash_choose_standard_text = settingItemView.findViewById(R.id.flash_choose_standard_text);
+        TextView flash_choose_high_text = settingItemView.findViewById(R.id.flash_choose_high_text);
+        TextView flash_choose_original_text = settingItemView.findViewById(R.id.flash_choose_original_text);
+        TextView flash_choose_standard_icon = settingItemView.findViewById(R.id.flash_choose_standard_icon);
+        TextView flash_choose_high_icon = settingItemView.findViewById(R.id.flash_choose_high_icon);
+        TextView flash_choose_original_icon = settingItemView.findViewById(R.id.flash_choose_original_icon);
+
+
+        TextView flash_choose_autoupload_text = settingItemView.findViewById(R.id.flash_choose_autoupload_text);
+        TextView flash_choose_manualupload_text = settingItemView.findViewById(R.id.flash_choose_manualupload_text);
+        TextView flash_choose_autoupload_icon = settingItemView.findViewById(R.id.flash_choose_autoupload_icon);
+        TextView flash_choose_manualupload_icon = settingItemView.findViewById(R.id.flash_choose_manualupload_icon);
+
+
+
+
+        //照片类型按钮点击按钮
+        choosePhotoSize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                photoSizeLayout.setVisibility(View.VISIBLE);
+                uploadModeLayout.setVisibility(View.GONE);
+
+                choosePhotoSizeLayout.setBackgroundColor(ContextCompat.getColor(
+                        PhotoGraphUploadOneActivity.this,R.color.white));
+                chooseUploadModeLayout.setBackgroundColor(ContextCompat.getColor(
+                        PhotoGraphUploadOneActivity.this,R.color.colorCursor));
+            }
+        });
+
+        //上传模式按钮点击按钮
         chooseUploadMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                photoSizeLayout.setVisibility(View.GONE);
+                uploadModeLayout.setVisibility(View.VISIBLE);
 
+                choosePhotoSizeLayout.setBackgroundColor(ContextCompat.getColor(
+                        PhotoGraphUploadOneActivity.this,R.color.colorCursor));
+                chooseUploadModeLayout.setBackgroundColor(ContextCompat.getColor(
+                        PhotoGraphUploadOneActivity.this,R.color.white));
             }
         });
 

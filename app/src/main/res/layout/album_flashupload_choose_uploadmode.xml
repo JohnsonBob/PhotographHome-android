@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#cccccc"
@@ -168,6 +169,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
+            android:background="@color/white"
             android:paddingLeft="20dp">
 
             <LinearLayout
@@ -185,25 +187,7 @@
                     android:textColor="#333333"
                     android:textSize="12sp" />
 
-                <LinearLayout
-                    android:id="@+id/original_tip1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="定制版功能，"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="了解定制版"
-                        android:textColor="#2998ff"
-                        android:textSize="10sp" />
-                </LinearLayout>
             </LinearLayout>
 
             <TextView
@@ -223,132 +207,9 @@
             android:layout_height="1dp"
             android:background="#eeeeee" />
 
-        <LinearLayout
-            android:id="@+id/photo_size_raw"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/flash_choose_raw_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="R     RAW"
-                    android:textColor="#333333"
-                    android:textSize="12sp" />
 
-                <LinearLayout
-                    android:id="@+id/raw_tip1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="定制版功能，"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="了解定制版"
-                        android:textColor="#2998ff"
-                        android:textSize="10sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/flash_choose_raw_icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right|center_vertical|center_horizontal|center"
-                android:paddingRight="30dp"
-                android:text=""
-                android:textColor="#2998ff"
-                android:textSize="14sp"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#eeeeee" />
-
-        <LinearLayout
-            android:id="@+id/photo_size_video"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/flash_choose_video_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="S     视频"
-                    android:textColor="#333333"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/video_tip2"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="上传视频大小限200M以内\10费用:按照文件大小5元/M(推广价)计费，\10不足1M的按照1M计算，上传成功后将从余额自动扣除\10播放:不限次数"
-                    android:textColor="#999999"
-                    android:textSize="8sp"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/video_tip1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="定制版功能，"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="了解定制版"
-                        android:textColor="#2998ff"
-                        android:textSize="10sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/flash_choose_video_icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right|center_vertical|center_horizontal|center"
-                android:paddingRight="30dp"
-                android:text=""
-                android:textColor="#2998ff"
-                android:textSize="14sp"
-                android:visibility="invisible" />
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -402,38 +263,6 @@
             android:layout_height="1dp"
             android:background="#eeeeee" />
 
-        <LinearLayout
-            android:id="@+id/upload_mode_rating"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp">
-
-            <TextView
-                android:id="@+id/flash_choose_ratingupload_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="B     标星自动上传"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/flash_choose_ratingupload_icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right|center_vertical|center_horizontal|center"
-                android:paddingRight="30dp"
-                android:text=""
-                android:textColor="#2998ff"
-                android:textSize="14sp"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#eeeeee" />
 
         <LinearLayout
             android:id="@+id/upload_mode_manual"
