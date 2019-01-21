@@ -2,21 +2,25 @@ package cc.yelinvan.photographhome.activity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -96,6 +100,8 @@ public class PhotoGraphUploadOneActivity extends BaseActivity implements View.On
     private BatteryReceiver batteryReceiver;
     private Typeface iconfont;
     private PopupWindow popupWindow;
+    private ListView proxyAdapter;
+//    private PhotoListAdapter photoListAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,6 +124,9 @@ public class PhotoGraphUploadOneActivity extends BaseActivity implements View.On
             registerReceiver(batteryReceiver, intentFilter);
         }
         this.iconfont = Typeface.createFromAsset(getAssets(), "fonts/iconfont.ttf");
+
+        /*this.photoListAdapter = new PhotoListAdapter();
+        this.proxyAdapter = new ProxyAdapter(this.photoListAdapter);*/
 
     }
 
@@ -144,6 +153,14 @@ public class PhotoGraphUploadOneActivity extends BaseActivity implements View.On
     @OnClick (R.id.back_text)
     public void goBack(){
         finish();
+    }
+
+    /**
+     * 知道了按钮点击事件
+     */
+    @OnClick (R.id.tip_layout_close)
+    public void kownClike(){
+        tipLayout.setVisibility(View.GONE);
     }
 
 
@@ -259,6 +276,70 @@ public class PhotoGraphUploadOneActivity extends BaseActivity implements View.On
             }
         });
 
+    }
+
+    /**
+     * 选择显示照片类型 按钮点击事件
+     */
+    @OnClick (R.id.album_flashupload_choose_photo_layout)
+    public void flashuploadChoosePhoto(){
+        ListView list = new ListView(this);
+        final PopupWindow popupWindow = new PopupWindow(list, this.albumFlashuploadSettingLayout.getWidth(), -2, true);
+        popupWindow.showAsDropDown(this.albumFlashuploadSettingLayout, 0, 1);
+        list.setDividerHeight(1);
+        list.setDivider(getResources().getDrawable(R.color.split_line_color));
+        final List<Map<String, String>> choosePhotoList = new ArrayList();
+        Map one = new HashMap();
+        one.put("itemName", "全部(" + 0 + ")");
+        choosePhotoList.add(one);
+        Map two = new HashMap();
+        two.put("itemName", "已上传(" + 0 + ")");
+        choosePhotoList.add(two);
+        Map three = new HashMap();
+        three.put("itemName", "未上传(" + 0 + ")");
+        choosePhotoList.add(three);
+        Map four = new HashMap();
+        four.put("itemName", "失败(" + 0 + ")");
+        choosePhotoList.add(four);
+        list.setAdapter(new SimpleAdapter(this, choosePhotoList, R.layout.flashupload_choose_list_item, new String[]{"itemName"}, new int[]{R.id.choose_item_text}));
+        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                if (tempChooseId != position) {
+                    if (position == 2 && CameraService.unUploadList.size() > 0) {
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.addHeaderView(PhotoGraphUploadOneActivity.this.headerView);
+                        PhotoGraphUploadOneActivity.this.photoList.scrollToPosition(0);
+                    } else if (position == 2 && CameraService.unUploadList.size() == 0) {
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
+                        ToastUtils.showShort((CharSequence) "你没有未上传的照片");
+                    } else if (position == 3 && CameraService.uploadFailedList.size() == 0) {
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
+                        ToastUtils.showShort((CharSequence) "你没有失败的照片");
+                    } else if (position != 3 || CameraService.uploadFailedList.size() <= 0) {
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
+                    } else {
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
+                        PhotoGraphUploadOneActivity.this.proxyAdapter.addHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
+                        PhotoGraphUploadOneActivity.this.photoList.scrollToPosition(0);
+                    }
+                    CameraService.currentPhotoChoosed = position;
+                    PhotoGraphUploadOneActivity.this.choosePhototext.setText(((String) ((Map) choosePhotoList.get(position)).get("itemName")).split("\\(")[0]);
+                    PhotoGraphUploadOneActivity.this.choosePhotoNumtext.setText("(" + ((String) ((Map) choosePhotoList.get(position)).get("itemName")).split("\\(")[1]);
+                    PhotoGraphUploadOneActivity.this.photoListAdapter.notifyDataSetChanged();
+                }
+                popupWindow.dismiss();
+            }
+        });
+        popupWindow.setOnDismissListener(new OnDismissListener() {
+            public void onDismiss() {
+                PhotoGraphUploadOneActivity.this.listShade.setVisibility(8);
+            }
+        });*/
     }
 
 
