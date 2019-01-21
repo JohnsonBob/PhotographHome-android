@@ -9,5 +9,5 @@
 
     <string name="flash_upload_list_text2">1.请检查相机是否开启并确保未在休眠\102.请检查数据线连接，重新拔插相机与闪传数据线\103.请确保手机OTG功能已经开启\104.请拔插数据线后，重新授权(拒绝相册权限，同意给喔图授权)\105.如上述问题都未解决，请重启手机和相机</string>
     <string name="flash_upload_list_text3">1.请检查相机是否开启并确保未在休眠\102.请检查数据线连接，重新拔插相机与闪传数据线\105.如上述问题都未解决，请重启闪传匣\10\10如长时间未连接成功，请联系客服微信\10(alltuu-service)或电话(0571-88711285)</string>
-
+    <string name="ovla_choose">&#xe7fc;</string>
 </resources>

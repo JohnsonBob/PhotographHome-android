@@ -3,6 +3,7 @@ package cc.yelinvan.photographhome.activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import cc.yelinvan.photographhome.Constant;
 import cc.yelinvan.photographhome.R;
 import cc.yelinvan.photographhome.Receiver.BatteryReceiver;
 import cc.yelinvan.photographhome.activity.base.BaseActivity;
@@ -32,7 +34,7 @@ import cc.yelinvan.photographhome.service.NetSpeedService;
  * Create by Johnson on 2019-1-16 11:56
  * 相册上传activity
  */
-public class PhotoGraphUploadOneActivity extends BaseActivity {
+public class PhotoGraphUploadOneActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.camera_state_text)
     TextView cameraStateText;
@@ -92,6 +94,8 @@ public class PhotoGraphUploadOneActivity extends BaseActivity {
     FrameLayout firstUseFlashuploadTip;
 
     private BatteryReceiver batteryReceiver;
+    private Typeface iconfont;
+    private PopupWindow popupWindow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +117,7 @@ public class PhotoGraphUploadOneActivity extends BaseActivity {
             IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             registerReceiver(batteryReceiver, intentFilter);
         }
+        this.iconfont = Typeface.createFromAsset(getAssets(), "fonts/iconfont.ttf");
 
     }
 
@@ -148,7 +153,7 @@ public class PhotoGraphUploadOneActivity extends BaseActivity {
     @OnClick (R.id.album_flashupload_choose_upload_setting_icon)
     public void showSetting(){
         View settingItemView = LayoutInflater.from(this).inflate(R.layout.album_flashupload_choose_uploadmode, null);
-        PopupWindow popupWindow = new PopupWindow(settingItemView, albumFlashuploadSettingLayout.getWidth(), -2,true);
+        popupWindow = new PopupWindow(settingItemView, albumFlashuploadSettingLayout.getWidth(), -2,true);
         popupWindow.showAsDropDown(albumFlashuploadSettingLayout,0,0);
 
         TextView choosePhotoSize = settingItemView.findViewById(R.id.choose_photo_size_text);
@@ -172,8 +177,52 @@ public class PhotoGraphUploadOneActivity extends BaseActivity {
         TextView flash_choose_autoupload_icon = settingItemView.findViewById(R.id.flash_choose_autoupload_icon);
         TextView flash_choose_manualupload_icon = settingItemView.findViewById(R.id.flash_choose_manualupload_icon);
 
+        //设置按钮单项点击事件
+        LinearLayout photo_size_standard = settingItemView.findViewById(R.id.photo_size_standard);
+        LinearLayout photo_size_high = settingItemView.findViewById(R.id.photo_size_high);
+        LinearLayout photo_size_original = settingItemView.findViewById(R.id.photo_size_original);
+        LinearLayout upload_mode_layout = settingItemView.findViewById(R.id.upload_mode_layout);
+        LinearLayout upload_mode_manual = settingItemView.findViewById(R.id.upload_mode_manual);
+        photo_size_standard.setOnClickListener(this);
+        photo_size_high.setOnClickListener(this);
+        photo_size_original.setOnClickListener(this);
+        upload_mode_layout.setOnClickListener(this);
+        upload_mode_manual.setOnClickListener(this);
 
 
+        flash_choose_standard_icon.setTypeface(this.iconfont);
+        flash_choose_high_icon.setTypeface(this.iconfont);
+        flash_choose_original_icon.setTypeface(this.iconfont);
+        flash_choose_autoupload_icon.setTypeface(this.iconfont);
+        flash_choose_manualupload_icon.setTypeface(this.iconfont);
+
+
+        flash_choose_standard_icon.setVisibility(View.INVISIBLE);
+        flash_choose_high_icon.setVisibility(View.INVISIBLE);
+        flash_choose_original_icon.setVisibility(View.INVISIBLE);
+        flash_choose_autoupload_icon.setVisibility(View.INVISIBLE);
+        flash_choose_manualupload_icon.setVisibility(View.INVISIBLE);
+
+        switch (Constant.UPLOADMODE){
+            case 1:
+                flash_choose_standard_icon.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                flash_choose_high_icon.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                flash_choose_original_icon.setVisibility(View.VISIBLE);
+                break;
+        }
+
+        switch (Constant.AUTOUPLOAD){
+            case 1:
+                flash_choose_autoupload_icon.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                flash_choose_manualupload_icon.setVisibility(View.VISIBLE);
+                break;
+        }
 
         //照片类型按钮点击按钮
         choosePhotoSize.setOnClickListener(new View.OnClickListener() {
@@ -203,8 +252,45 @@ public class PhotoGraphUploadOneActivity extends BaseActivity {
             }
         });
 
+        photoSizeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.photo_size_standard:
+                Constant.UPLOADMODE = 1;
+                popupWindow.dismiss();
 
+                break;
+            case R.id.photo_size_high:
+                Constant.UPLOADMODE = 2;
+                popupWindow.dismiss();
+
+                break;
+            case R.id.photo_size_original:
+                Constant.UPLOADMODE = 3;
+                popupWindow.dismiss();
+
+                break;
+            case R.id.upload_mode_layout:
+                Constant.AUTOUPLOAD =1;
+                popupWindow.dismiss();
+
+                break;
+
+            case R.id.upload_mode_manual:
+                Constant.AUTOUPLOAD =2;
+                popupWindow.dismiss();
+
+                break;
+        }
+    }
 }
