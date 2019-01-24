@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -302,44 +303,17 @@ public class PhotoGraphUploadOneActivity extends BaseActivity implements View.On
         four.put("itemName", "失败(" + 0 + ")");
         choosePhotoList.add(four);
         list.setAdapter(new SimpleAdapter(this, choosePhotoList, R.layout.flashupload_choose_list_item, new String[]{"itemName"}, new int[]{R.id.choose_item_text}));
-        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                if (tempChooseId != position) {
-                    if (position == 2 && CameraService.unUploadList.size() > 0) {
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.addHeaderView(PhotoGraphUploadOneActivity.this.headerView);
-                        PhotoGraphUploadOneActivity.this.photoList.scrollToPosition(0);
-                    } else if (position == 2 && CameraService.unUploadList.size() == 0) {
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
-                        ToastUtils.showShort((CharSequence) "你没有未上传的照片");
-                    } else if (position == 3 && CameraService.uploadFailedList.size() == 0) {
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
-                        ToastUtils.showShort((CharSequence) "你没有失败的照片");
-                    } else if (position != 3 || CameraService.uploadFailedList.size() <= 0) {
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
-                    } else {
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.headerView);
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.removeHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
-                        PhotoGraphUploadOneActivity.this.proxyAdapter.addHeaderView(PhotoGraphUploadOneActivity.this.failHeaderView);
-                        PhotoGraphUploadOneActivity.this.photoList.scrollToPosition(0);
-                    }
-                    CameraService.currentPhotoChoosed = position;
-                    PhotoGraphUploadOneActivity.this.choosePhototext.setText(((String) ((Map) choosePhotoList.get(position)).get("itemName")).split("\\(")[0]);
-                    PhotoGraphUploadOneActivity.this.choosePhotoNumtext.setText("(" + ((String) ((Map) choosePhotoList.get(position)).get("itemName")).split("\\(")[1]);
-                    PhotoGraphUploadOneActivity.this.photoListAdapter.notifyDataSetChanged();
-                }
+                startActivity(new Intent(PhotoGraphUploadOneActivity.this,MainActivity.class));
                 popupWindow.dismiss();
             }
         });
-        popupWindow.setOnDismissListener(new OnDismissListener() {
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             public void onDismiss() {
-                PhotoGraphUploadOneActivity.this.listShade.setVisibility(8);
+//                PhotoGraphUploadOneActivity.this.listShade.setVisibility(8);
             }
-        });*/
+        });
     }
 
 

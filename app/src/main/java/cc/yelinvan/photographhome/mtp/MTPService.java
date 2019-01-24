@@ -150,15 +150,18 @@ public class MTPService {
                             MtpDeviceInfo mtpDeviceInfo = mMtpDevice.getDeviceInfo();
                             String deviceSeriNumber = null;
                             if (mtpDeviceInfo != null)
+                                //获取MTP设备的唯一序列号
                                 deviceSeriNumber = mtpDeviceInfo.getSerialNumber();
                             else
                                 deviceSeriNumber = "xx";
+                            //获取存储单元id 也就是几张存储卡
                             int[] storageIds = mMtpDevice.getStorageIds();
                             if (storageIds == null) {
                                 showToast(mContext,"获取相机存储空间失败");
                                 return list;
                             }
                             for (int storageId : storageIds) {
+                                //获取 jpeg文件在 给定存储单元上所有对象的对象句柄列表
                                 int[] objectHandles = mMtpDevice.getObjectHandles(storageId, MtpConstants.FORMAT_EXIF_JPEG, 0);
                                 if(objectHandles==null){
                                     showToast(mContext,"获取照片失败");
@@ -169,10 +172,12 @@ public class MTPService {
                                     if (mtpobj == null) {
                                         continue;
                                     }
+                                    //返回文件的创建日期 该值自1970年1月1日起以毫秒表示
                                     long dateCreated=mtpobj.getDateCreated();
 
-
+                                    //以数组形式返回一个对象的jpeg格式缩略图
                                     byte[] bytes = mMtpDevice.getThumbnail(objectHandle);
+
                                     filePath.setLength(0);
                                     filePath.append(Environment.getExternalStorageDirectory().getAbsolutePath())
                                             .append(File.separator)
@@ -196,9 +201,7 @@ public class MTPService {
                                     info.setSequenceNumber(mtpobj.getSequenceNumber());
                                     info.setKeyWords(mtpobj.getKeywords());
                                     info.setmSerialNumber(deviceSeriNumber);
-                                    //                                        if(Long.toString(mtpobj.getDateCreated()).startsWith("15")){
-                                    //                                            mMtpDevice.deleteObject(objectHandle);
-                                    //                                        }
+
                                     list.add(info);
                                 }
                             }
