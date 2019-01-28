@@ -41,6 +41,7 @@
         <activity android:name=".activity.ProjectListActivity"></activity>
         <activity android:name=".activity.PhotoGraphUploadOneActivity"></activity>
         <service android:name=".service.NetSpeedService"></service>
+        <service android:name=".service.MTPGetPhotoService"/>
     </application>
 
 </manifest>

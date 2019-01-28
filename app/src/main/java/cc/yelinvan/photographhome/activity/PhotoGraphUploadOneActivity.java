@@ -1,9 +1,13 @@
 package cc.yelinvan.photographhome.activity;
 
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,6 +37,7 @@ import cc.yelinvan.photographhome.R;
 import cc.yelinvan.photographhome.Receiver.BatteryReceiver;
 import cc.yelinvan.photographhome.activity.base.BaseActivity;
 import cc.yelinvan.photographhome.eventbus.NetSpeedEvent;
+import cc.yelinvan.photographhome.service.MTPGetPhotoService;
 import cc.yelinvan.photographhome.service.NetSpeedService;
 
 /**
@@ -103,12 +108,31 @@ public class PhotoGraphUploadOneActivity extends BaseActivity implements View.On
     private PopupWindow popupWindow;
     private ListView proxyAdapter;
 //    private PhotoListAdapter photoListAdapter;
+    private MTPGetPhotoService mtpGetPhotoService = null;
+    private boolean isBound = false;
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            isBound = true;
+            MTPGetPhotoService.MyBinder binder = (MTPGetPhotoService.MyBinder) iBinder;
+            mtpGetPhotoService = binder.getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            isBound = false;
+            mtpGetPhotoService = null;
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
         EventBus.getDefault().register(this);
+        bindService(new Intent(this,MTPGetPhotoService.class),
+                serviceConnection, Service.BIND_AUTO_CREATE);
     }
 
     @Override
